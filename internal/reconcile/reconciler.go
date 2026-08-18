@@ -28,7 +28,7 @@ func (r *Reconciler) Apply(e domain.InventoryEvent, reserved int64) (domain.Reco
 		s.SKU = e.SKU
 		s.Warehouse = e.Warehouse
 	}
-	if e.Version < s.AppliedVersion {
+	if e.Version <= s.AppliedVersion {
 		return domain.ReconcileResult{State: s, Duplicate: true, Reason: "stale event"}, nil
 	}
 	s.OnHand += e.Delta()
